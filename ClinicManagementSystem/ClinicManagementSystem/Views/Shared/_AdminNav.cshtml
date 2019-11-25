@@ -1,0 +1,21 @@
+﻿<ul class="nav side-menu">
+    <li>
+        <a href="@Url.Action("Index","Home")"><i class="fa fa-home"></i> Dashboard </a>
+    </li>
+    <li><a href="@Url.Action("Admins","Admin")"><i class="fa fa-user"></i> Admin</a></li>
+    <li><a href="@Url.Action("Assistants","Admin")"><i class="fa fa-plus-square"></i> Assistant</a></li>
+    <li><a href="@Url.Action("Doctors","Admin")"><i class="fa fa-user-md"></i> Doctor</a></li>
+    <li><a href="@Url.Action("Patients","Admin")"><i class="fa fa-users"></i> Patient</a></li>
+    <li><a href="@Url.Action("Appointments","Admin")"><i class="fa fa-book"></i> Appointment</a></li>
+    <li><a href="@Url.Action("Profile","Admin")"><i class="fa fa-edit" aria-hidden="true"></i> Profile</a></li>
+
+    <li>
+        <a><i class="fa fa-bar-chart-o"></i> Report <span class="fa fa-chevron-down"></span></a>
+        <ul class="nav child_menu">
+            <li><a href="@Url.Action("ByDate","Reports")">By Date </a></li>
+            <li><a href="@Url.Action("ByAppointment","Reports")">By Appointment </a></li>
+            <li><a href="@Url.Action("ByPatient","Reports")">By Patient </a></li>
+
+        </ul>
+    </li>
+</ul>

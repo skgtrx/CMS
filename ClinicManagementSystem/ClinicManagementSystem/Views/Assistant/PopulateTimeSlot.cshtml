@@ -1,0 +1,14 @@
+﻿@model ClinicManagementSystem.Models.TimeSlotViewModel
+@{
+    Layout = null;
+}
+<option value="select">-select-</option>
+@foreach (var item in Model.TimeSlots)
+{
+    if (item.Id >= Model.FromSlot && item.Id <= Model.ToSlot)
+    {
+        <option value="@item.Id">@item.Time</option>
+    }
+}
+
+

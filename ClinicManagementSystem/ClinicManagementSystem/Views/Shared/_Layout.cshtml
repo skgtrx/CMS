@@ -1,0 +1,194 @@
+﻿@using System.Security.Claims
+@using ClinicManagementSystem.Models
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Clinic Management System</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/Chosen/chosen.min.css" rel="stylesheet" />
+    <style>
+        .validation-summary-errors ul { 
+            list-style: none;
+            margin-left:-40px;
+            font-weight: bold;
+        }
+
+        .switch {
+          position: relative;
+          display: inline-block;
+          width: 40px;
+          height: 20px;
+        }
+
+        /* Hide default HTML checkbox */
+        .switch input {
+          opacity: 0;
+          width: 0;
+          height: 0;
+        }
+
+        /* The slider */
+        .slider {
+          position: absolute;
+          cursor: pointer;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: #ccc;
+          -webkit-transition: .4s;
+          transition: .4s;
+        }
+
+        .slider:before {
+          position: absolute;
+          content: "";
+          height: 12px;
+          width: 12px;
+          left: 1px;
+          bottom: 4px;
+          background-color: white;
+          -webkit-transition: .4s;
+          transition: .4s;
+        }
+
+        input:checked + .slider {
+          background-color: #2196F3;
+        }
+
+        input:focus + .slider {
+          box-shadow: 0 0 1px #2196F3;
+        }
+
+        input:checked + .slider:before {
+          -webkit-transform: translateX(26px);
+          -ms-transform: translateX(26px);
+          transform: translateX(26px);
+        }
+
+        /* Rounded sliders */
+        .slider.round {
+          border-radius: 34px;
+        }
+
+        .slider.round:before {
+          border-radius: 50%;
+        }
+
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+          -webkit-appearance: none; 
+        }
+
+        input[type=number] {
+          -moz-appearance: textfield;
+        }
+    </style>
+</head>
+<body class="nav-md">
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view">
+                    <div class="navbar nav_title" style="border: 0;">
+                        <a href="/Home" class="site_title"><i class="fa fa-hospital-o"></i> <span>Aptean Clinic</span></a>
+                    </div>
+                    <div class="clearfix"></div>
+                    <!-- menu profile quick info -->
+                    <div class="profile clearfix">
+                        <div class="profile_pic">
+                            <img src="~/Content/images/user.png" alt="..." class="img-circle profile_img">
+                        </div>
+                        <div class="profile_info">
+                            <span>Welcome,</span>
+                            @{
+
+                                var name = Session["firstName"];
+                                var role = Session["roleId"];
+                                var userId = Session["userId"];
+                            }
+                            <h2>@name</h2>
+                        </div>
+                    </div>
+                    <!-- /menu profile quick info -->
+                    <br />
+                    <!-- sidebar menu -->
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                        <div class="menu_section">
+                            @{
+                                if ((int)@role == (int)ClinicManagementSystemDOL.Enums.Roles.Admin)
+                                {
+                                    @Html.Partial("_AdminNav")
+                                }
+                                else if ((int)@role == (int)ClinicManagementSystemDOL.Enums.Roles.Doctor)
+                                {
+                                    @Html.Partial("_DoctorNav")
+                                }
+                                else if ((int)@role == (int)ClinicManagementSystemDOL.Enums.Roles.Assistant)
+                                {
+                                    @Html.Partial("_AssistantNav")
+                                }
+                                else if ((int)@role == (int)ClinicManagementSystemDOL.Enums.Roles.Patient)
+                                {
+                                    @Html.Partial("_PatientNav")
+                                }
+                            }
+                        </div>
+                    </div>
+                    <!-- /sidebar menu -->
+                    <!-- /menu footer buttons -->
+                    <div class="sidebar-footer hidden-small">
+                        <a style="height:35px"></a>
+                        <a style="height:35px"></a>
+                        <a style="height:35px"></a>
+                        <a data-toggle="tooltip" data-placement="top" title="Logout" href="javascript:document.getElementById('logoutForm').submit()">
+                            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                    <!-- /menu footer buttons -->
+                </div>
+            </div>
+            <!-- top navigation -->
+            <div class="top_nav">
+                <div class="nav_menu">
+                    <nav>
+                        <div class="nav toggle">
+                            <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                        </div>
+                        @Html.Partial("_LogoutPartial")
+                    </nav>
+                </div>
+            </div>
+            <!-- /top navigation -->
+            <div class="right_col" role="main">
+                <div class="">
+                    @RenderBody()
+                </div>
+            </div>
+            <!-- footer content -->
+            <footer>
+                <div class="clearfix"></div>
+            </footer>
+            <!-- /footer content -->
+
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/chosen.jquery.min.js"></script>
+    @section scripts{
+        <script>
+            $(document).ready(function () {
+                $("sidebar-footer hidden-small").css({
+                    'width': ($(".sidebar-menu").width() + 'px')
+                });
+            });
+        </script>
+    }
+</body>
+
+</html>

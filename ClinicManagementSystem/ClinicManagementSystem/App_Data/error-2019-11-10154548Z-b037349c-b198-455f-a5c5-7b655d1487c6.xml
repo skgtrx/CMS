@@ -1,0 +1,177 @@
+﻿<error errorId="b037349c-b198-455f-a5c5-7b655d1487c6" application="/LM/W3SVC/2/ROOT" host="APT04-CP8X2X2" type="System.ArgumentException" message="parsing &quot;^\(?([0-9])\))$&quot; - Too many )'s." source="System" detail="System.ArgumentException: parsing &quot;^\(?([0-9])\))$&quot; - Too many )'s.&#xD;&#xA;   at System.Text.RegularExpressions.RegexParser.ScanRegex()&#xD;&#xA;   at System.Text.RegularExpressions.RegexParser.Parse(String re, RegexOptions op)&#xD;&#xA;   at System.Text.RegularExpressions.Regex..ctor(String pattern, RegexOptions options, TimeSpan matchTimeout, Boolean useCache)&#xD;&#xA;   at System.Text.RegularExpressions.Regex..ctor(String pattern)&#xD;&#xA;   at System.ComponentModel.DataAnnotations.RegularExpressionAttribute.SetupRegex()&#xD;&#xA;   at System.ComponentModel.DataAnnotations.RegularExpressionAttribute.FormatErrorMessage(String name)&#xD;&#xA;   at System.Web.Mvc.DataAnnotationsModelValidator.get_ErrorMessage()&#xD;&#xA;   at System.Web.Mvc.RegularExpressionAttributeAdapter.GetClientValidationRules()&#xD;&#xA;   at System.Web.Mvc.HtmlHelper.&lt;.ctor&gt;b__1(ModelValidator v)&#xD;&#xA;   at System.Linq.Enumerable.&lt;SelectManyIterator&gt;d__17`2.MoveNext()&#xD;&#xA;   at System.Web.Mvc.UnobtrusiveValidationAttributesGenerator.GetValidationAttributes(IEnumerable`1 clientRules, IDictionary`2 results)&#xD;&#xA;   at System.Web.Mvc.HtmlHelper.GetUnobtrusiveValidationAttributes(String name, ModelMetadata metadata)&#xD;&#xA;   at System.Web.Mvc.Html.InputExtensions.InputHelper(HtmlHelper htmlHelper, InputType inputType, ModelMetadata metadata, String name, Object value, Boolean useViewData, Boolean isChecked, Boolean setId, Boolean isExplicitValue, String format, IDictionary`2 htmlAttributes)&#xD;&#xA;   at System.Web.Mvc.Html.InputExtensions.TextBoxFor[TModel,TProperty](HtmlHelper`1 htmlHelper, Expression`1 expression, String format, IDictionary`2 htmlAttributes)&#xD;&#xA;   at System.Web.Mvc.Html.InputExtensions.TextBoxFor[TModel,TProperty](HtmlHelper`1 htmlHelper, Expression`1 expression, String format, Object htmlAttributes)&#xD;&#xA;   at System.Web.Mvc.Html.InputExtensions.TextBoxFor[TModel,TProperty](HtmlHelper`1 htmlHelper, Expression`1 expression, Object htmlAttributes)&#xD;&#xA;   at ASP._Page_Views_Assistant_AddMedicines_cshtml.Execute() in C:\Users\nupadhyay\Documents\Visual Studio 2015\Clinic Management System\ClinicManagementSystem\ClinicManagementSystem\Views\Assistant\AddMedicines.cshtml:line 37&#xD;&#xA;   at System.Web.WebPages.WebPageBase.ExecutePageHierarchy()&#xD;&#xA;   at System.Web.Mvc.WebViewPage.ExecutePageHierarchy()&#xD;&#xA;   at System.Web.WebPages.StartPage.RunPage()&#xD;&#xA;   at System.Web.WebPages.StartPage.ExecutePageHierarchy()&#xD;&#xA;   at System.Web.WebPages.WebPageBase.ExecutePageHierarchy(WebPageContext pageContext, TextWriter writer, WebPageRenderingBase startPage)&#xD;&#xA;   at System.Web.Mvc.RazorView.RenderView(ViewContext viewContext, TextWriter writer, Object instance)&#xD;&#xA;   at System.Web.Mvc.BuildManagerCompiledView.Render(ViewContext viewContext, TextWriter writer)&#xD;&#xA;   at System.Web.Mvc.ViewResultBase.ExecuteResult(ControllerContext context)&#xD;&#xA;   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResult(ControllerContext controllerContext, ActionResult actionResult)&#xD;&#xA;   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)&#xD;&#xA;   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)&#xD;&#xA;   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResultWithFilters(ControllerContext controllerContext, IList`1 filters, ActionResult actionResult)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncControllerActionInvoker.&lt;&gt;c__DisplayClass21.&lt;&gt;c__DisplayClass2b.&lt;BeginInvokeAction&gt;b__1c()&#xD;&#xA;   at System.Web.Mvc.Async.AsyncControllerActionInvoker.&lt;&gt;c__DisplayClass21.&lt;BeginInvokeAction&gt;b__1e(IAsyncResult asyncResult)" time="2019-11-10T15:45:48.2421392Z">
+  <serverVariables>
+    <item name="ALL_HTTP">
+      <value string="HTTP_CONNECTION:keep-alive&#xD;&#xA;HTTP_ACCEPT:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3&#xD;&#xA;HTTP_ACCEPT_ENCODING:gzip, deflate, br&#xD;&#xA;HTTP_ACCEPT_LANGUAGE:en-US,en;q=0.9&#xD;&#xA;HTTP_COOKIE:__RequestVerificationToken=mWDrd29u2HuU9guTfwNj3XqZwGQ9K-IcTZeK10oosf4P0m-3Lh8aHuLcPvPvg--lr2JyiFJ7OoNeCH3oCa8pThNfh1o3anNS1A5BC4mUu-g1; ASP.NET_SessionId=232m1hb4t2tvtnwozv0rq34r&#xD;&#xA;HTTP_HOST:localhost:54698&#xD;&#xA;HTTP_REFERER:http://localhost:54698/Home&#xD;&#xA;HTTP_USER_AGENT:Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36&#xD;&#xA;HTTP_UPGRADE_INSECURE_REQUESTS:1&#xD;&#xA;HTTP_SEC_FETCH_USER:?1&#xD;&#xA;HTTP_SEC_FETCH_SITE:same-origin&#xD;&#xA;HTTP_SEC_FETCH_MODE:navigate&#xD;&#xA;" />
+    </item>
+    <item name="ALL_RAW">
+      <value string="Connection: keep-alive&#xD;&#xA;Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3&#xD;&#xA;Accept-Encoding: gzip, deflate, br&#xD;&#xA;Accept-Language: en-US,en;q=0.9&#xD;&#xA;Cookie: __RequestVerificationToken=mWDrd29u2HuU9guTfwNj3XqZwGQ9K-IcTZeK10oosf4P0m-3Lh8aHuLcPvPvg--lr2JyiFJ7OoNeCH3oCa8pThNfh1o3anNS1A5BC4mUu-g1; ASP.NET_SessionId=232m1hb4t2tvtnwozv0rq34r&#xD;&#xA;Host: localhost:54698&#xD;&#xA;Referer: http://localhost:54698/Home&#xD;&#xA;User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36&#xD;&#xA;Upgrade-Insecure-Requests: 1&#xD;&#xA;Sec-Fetch-User: ?1&#xD;&#xA;Sec-Fetch-Site: same-origin&#xD;&#xA;Sec-Fetch-Mode: navigate&#xD;&#xA;" />
+    </item>
+    <item name="APPL_MD_PATH">
+      <value string="/LM/W3SVC/2/ROOT" />
+    </item>
+    <item name="APPL_PHYSICAL_PATH">
+      <value string="C:\Users\nupadhyay\Documents\Visual Studio 2015\Clinic Management System\ClinicManagementSystem\ClinicManagementSystem\" />
+    </item>
+    <item name="AUTH_TYPE">
+      <value string="" />
+    </item>
+    <item name="AUTH_USER">
+      <value string="" />
+    </item>
+    <item name="AUTH_PASSWORD">
+      <value string="*****" />
+    </item>
+    <item name="LOGON_USER">
+      <value string="" />
+    </item>
+    <item name="REMOTE_USER">
+      <value string="" />
+    </item>
+    <item name="CERT_COOKIE">
+      <value string="" />
+    </item>
+    <item name="CERT_FLAGS">
+      <value string="" />
+    </item>
+    <item name="CERT_ISSUER">
+      <value string="" />
+    </item>
+    <item name="CERT_KEYSIZE">
+      <value string="" />
+    </item>
+    <item name="CERT_SECRETKEYSIZE">
+      <value string="" />
+    </item>
+    <item name="CERT_SERIALNUMBER">
+      <value string="" />
+    </item>
+    <item name="CERT_SERVER_ISSUER">
+      <value string="" />
+    </item>
+    <item name="CERT_SERVER_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="CERT_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="CONTENT_LENGTH">
+      <value string="0" />
+    </item>
+    <item name="CONTENT_TYPE">
+      <value string="" />
+    </item>
+    <item name="GATEWAY_INTERFACE">
+      <value string="CGI/1.1" />
+    </item>
+    <item name="HTTPS">
+      <value string="off" />
+    </item>
+    <item name="HTTPS_KEYSIZE">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SECRETKEYSIZE">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SERVER_ISSUER">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SERVER_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="INSTANCE_ID">
+      <value string="2" />
+    </item>
+    <item name="INSTANCE_META_PATH">
+      <value string="/LM/W3SVC/2" />
+    </item>
+    <item name="LOCAL_ADDR">
+      <value string="::1" />
+    </item>
+    <item name="PATH_INFO">
+      <value string="/Assistant/Medicines" />
+    </item>
+    <item name="PATH_TRANSLATED">
+      <value string="C:\Users\nupadhyay\Documents\Visual Studio 2015\Clinic Management System\ClinicManagementSystem\ClinicManagementSystem\Assistant\Medicines" />
+    </item>
+    <item name="QUERY_STRING">
+      <value string="" />
+    </item>
+    <item name="REMOTE_ADDR">
+      <value string="::1" />
+    </item>
+    <item name="REMOTE_HOST">
+      <value string="::1" />
+    </item>
+    <item name="REMOTE_PORT">
+      <value string="59421" />
+    </item>
+    <item name="REQUEST_METHOD">
+      <value string="GET" />
+    </item>
+    <item name="SCRIPT_NAME">
+      <value string="/Assistant/Medicines" />
+    </item>
+    <item name="SERVER_NAME">
+      <value string="localhost" />
+    </item>
+    <item name="SERVER_PORT">
+      <value string="54698" />
+    </item>
+    <item name="SERVER_PORT_SECURE">
+      <value string="0" />
+    </item>
+    <item name="SERVER_PROTOCOL">
+      <value string="HTTP/1.1" />
+    </item>
+    <item name="SERVER_SOFTWARE">
+      <value string="Microsoft-IIS/10.0" />
+    </item>
+    <item name="URL">
+      <value string="/Assistant/Medicines" />
+    </item>
+    <item name="HTTP_CONNECTION">
+      <value string="keep-alive" />
+    </item>
+    <item name="HTTP_ACCEPT">
+      <value string="text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3" />
+    </item>
+    <item name="HTTP_ACCEPT_ENCODING">
+      <value string="gzip, deflate, br" />
+    </item>
+    <item name="HTTP_ACCEPT_LANGUAGE">
+      <value string="en-US,en;q=0.9" />
+    </item>
+    <item name="HTTP_COOKIE">
+      <value string="__RequestVerificationToken=mWDrd29u2HuU9guTfwNj3XqZwGQ9K-IcTZeK10oosf4P0m-3Lh8aHuLcPvPvg--lr2JyiFJ7OoNeCH3oCa8pThNfh1o3anNS1A5BC4mUu-g1; ASP.NET_SessionId=232m1hb4t2tvtnwozv0rq34r" />
+    </item>
+    <item name="HTTP_HOST">
+      <value string="localhost:54698" />
+    </item>
+    <item name="HTTP_REFERER">
+      <value string="http://localhost:54698/Home" />
+    </item>
+    <item name="HTTP_USER_AGENT">
+      <value string="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36" />
+    </item>
+    <item name="HTTP_UPGRADE_INSECURE_REQUESTS">
+      <value string="1" />
+    </item>
+    <item name="HTTP_SEC_FETCH_USER">
+      <value string="?1" />
+    </item>
+    <item name="HTTP_SEC_FETCH_SITE">
+      <value string="same-origin" />
+    </item>
+    <item name="HTTP_SEC_FETCH_MODE">
+      <value string="navigate" />
+    </item>
+  </serverVariables>
+  <cookies>
+    <item name="__RequestVerificationToken">
+      <value string="mWDrd29u2HuU9guTfwNj3XqZwGQ9K-IcTZeK10oosf4P0m-3Lh8aHuLcPvPvg--lr2JyiFJ7OoNeCH3oCa8pThNfh1o3anNS1A5BC4mUu-g1" />
+    </item>
+    <item name="ASP.NET_SessionId">
+      <value string="232m1hb4t2tvtnwozv0rq34r" />
+    </item>
+  </cookies>
+</error>

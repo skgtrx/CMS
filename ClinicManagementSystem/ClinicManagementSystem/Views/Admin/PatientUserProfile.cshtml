@@ -1,0 +1,85 @@
+﻿@using ClinicManagementSystem.Models
+@using ClinicManagementSystemDOL.Enums
+@model PatientProfileViewModel
+@{
+    ViewBag.Title = "Patient Profile";
+    if (Session["userId"] == null)
+    {
+        Response.Redirect("~/Account/Login");
+    }
+    else if ((int)Session["roleId"] != (int)ClinicManagementSystemDOL.Enums.Roles.Admin)
+    {
+        Response.Redirect("~/Error.htm");
+    }
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Profile </h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a href="@Url.Action("Patient/Profile/Edit","Admin", new { id = Model.Patient.Id})" class="btn-link"><i class="fa fa-edit m-right-xs"></i>Edit</a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="col-md-3 col-sm-3 col-xs-12 profile_left">
+                    <div class="profile_img">
+                        <div id="crop-avatar">
+                            <!-- Current avatar -->
+                            <img class="img-responsive avatar-view" src="~/Content/images/user.png" alt="Avatar" title="Change the avatar">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    @if (Model.Patient.Gender == (int)Gender.Male)
+                    {
+                        <h3> Mr. @char.ToUpper(@Model.Patient.FirstName[0])@Model.Patient.FirstName.Substring(1) @char.ToUpper(@Model.Patient.LastName[0])@Model.Patient.LastName.Substring(1)</h3>
+                    }
+                    else
+                    {
+                        <h3> Mr. @char.ToUpper(@Model.Patient.FirstName[0])@Model.Patient.FirstName.Substring(1) @char.ToUpper(@Model.Patient.LastName[0])@Model.Patient.LastName.Substring(1)</h3>
+                    }
+                    <ul class="list-unstyled user_data">
+                        <li>
+                            <i class="fa fa-briefcase user-profile-icon"></i> &nbsp; Patient
+                        </li>
+                        <li>
+                            <i class="fa fa-birthday-cake user-profile-icon"></i> &nbsp; @Model.Patient.DateOfBirth.ToShortDateString()
+                        </li>
+                        <li>
+                            <i class="fa fa-map-marker user-profile-icon"></i> &nbsp; @Model.Patient.Address
+                        </li>
+                        <li>
+                            <i class="fa fa-phone"></i> &nbsp; @Model.Patient.Phone
+                        </li>
+                        <li>
+                            <i class="fa fa-inbox"></i> &nbsp; @Model.Patient.Email
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <br /><br />
+                    <a href="#" style="padding: 3px 10px 3px 10px; background-color:green " class="badge" readonly>Emergency Contact</a>
+                    <h5>
+                        &nbsp; &nbsp;  @char.ToUpper(@Model.PatientInfo.ConservatorName[0])@Model.PatientInfo.ConservatorName.Substring(1)
+                    </h5>
+                    <ul class="list-unstyled user_data">
+                        <li>
+                            <i class="glyphicon glyphicon-tags"></i> &nbsp; @Model.PatientInfo.ConservatorRelation
+                        </li>
+                        <li>
+                            <i class="fa fa-phone"></i> &nbsp; @Model.PatientInfo.ConservatorPhone
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12" style="text-align:right">
+                    <a class="btn btn-primary btn-sm" href="@Url.Action("Patients","Admin")">Back</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

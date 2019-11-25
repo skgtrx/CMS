@@ -1,0 +1,78 @@
+﻿@model ClinicManagementSystem.Models.RemarkViewModel
+@{
+    ViewBag.Title = "Remark";
+    if (Session["userId"] == null)
+    {
+        Response.Redirect("~/Account/Login");
+    }
+    else if ((int)Session["roleId"] != (int)ClinicManagementSystemDOL.Enums.Roles.Doctor)
+    {
+        Response.Redirect("~/Error.htm");
+    }
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h3>Token Id : @Model.AppointmentId </h3>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                @using (Html.BeginForm("AddRemark", "Doctor", FormMethod.Post, new { @class = "form-horizontal form-label-left" }))
+                {
+                    @Html.HiddenFor(m => m.AppointmentId, Model.AppointmentId)
+                    @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Remarks <span class="required">*</span></label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            @Html.TextAreaFor(m => m.Remark, new { @class = "form-control col-md-7 col-xs-12", autofocus = "true", @id = "Remark" })
+                            @Html.ValidationMessageFor(m => m.Remark)
+                        </div>
+                    </div>
+                    <div class="ln_solid"></div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                            <button type="submit" class="btn btn-primary" id="Submit">Submit</button>
+                            <button type="button" class="btn btn-primary" id="AddMedicineTest">Add Medicines or Tests</button>
+                            <a class="btn btn-danger" onclick="history.go(-1); return false;" href="#">Cancel</a>
+
+                            @*<a href="@Url.Action("Intermediatory", "Doctor")" type="button" class="btn btn-success" id="AddMedicineTest">Add Medicines or Tests</a>*@
+                        </div>
+                    </div>
+
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $('.datepicker').datepicker();
+
+        $("#AddMedicineTest").on("click", function () {
+            var model = new Object();
+            model.AppointmentId = $("#AppointmentId").val();
+            model.Remark = $("#Remark").val();
+
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("Intermediatory", "Doctor")",
+                data: JSON.stringify(model),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    window.location.href = data
+                },
+                fail: function (errorData) {
+
+                    onError(errorData);
+                }
+            });
+        });
+    </script>
+}
+
+

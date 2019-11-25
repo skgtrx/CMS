@@ -1,0 +1,279 @@
+﻿@using ClinicManagementSystem.Models
+
+@using ClinicManagementSystemDOL.Models;
+@model AddMedicinesAndTestViewModel
+
+@{
+    ViewBag.Title = "Add Meds and Tests";
+    if (Session["userId"] == null)
+    {
+        Response.Redirect("~/Account/Login");
+    }
+    else if ((int)Session["roleId"] != (int)ClinicManagementSystemDOL.Enums.Roles.Doctor)
+    {
+        Response.Redirect("~/Error.htm");
+    }
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.HiddenFor(m => m.AppointmentId, Model.AppointmentId)
+@Html.HiddenFor(m=>m.Remark,Model.Remark)
+<style> 
+    #medTab2 tbody tr{
+        height: 50px;
+    }
+    
+    #testTab2 tbody tr{
+        height: 50px;
+    }
+
+    .pull-left{
+        float: left !important
+    }
+</style>
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h3>Add Medicines and Tests </h3>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="panel panel-default" style="padding: 10px; margin: 10px">
+                    <div id="Tabs" role="tabpanel">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="active">
+                                <a href="#Medicines" aria-controls="Medicines" role="tab" data-toggle="tab">
+                                    Medicines
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#Tests" aria-controls="Tests" role="tab" data-toggle="tab">
+                                    Tests
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content" style="padding-top: 20px">
+
+                            <div role="tabpanel" class="tab-pane fade in active" id="Medicines">
+                                <div class='table-responsive text-center'>
+
+                                    <table id="medTab1" class="data table table-striped no-margin" style="width:47%; float:left">
+                                        <col>
+                                        <col style="width:20%">
+                                        <col style="width:18%">
+
+                                        <thead>
+                                            <tr>
+                                                <th>Medicine</th>
+                                                <th>No of days</th>
+                                                <th>Doses</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.MedicinesList)
+                                            {
+                                                <tr>
+                                                    <td>@item.Name</td>
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <input id="box" type="text" class="form-control" maxlength="4" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" />
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <select class="form-control match-content">
+                                                            <option selected="">0</option>
+                                                            <option>1</option>
+                                                            <option>2</option>
+                                                            <option>3</option>
+                                                            <option>4</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-primary btn-sm js-add1">Add </button>
+                                                    </td>
+                                                   
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                    <table id="medTab2" class="data table table-striped no-margin" style="float:right; width:47%">
+                                        <col>
+                                        <col style="width:20%">
+                                        <col style="width:18%">
+                                        <thead>
+                                            <tr>
+                                                <th>Medicine</th>
+                                                <th>No of days</th>
+                                                <th>Doses</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                </table>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="Tests">
+                                <div class='table-responsive text-center'>
+                                    <table id="testTab1" class="data table table-striped no-margin" style="width:47%; float:left">
+                                        <thead>
+                                            <tr>
+                                                <th>Test Name</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.TestsList)
+                                            {
+                                                <tr>
+                                                    <td>@item.Name</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-primary btn-sm js-add2">Add </button>
+                                                    </td>
+                                                 
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+
+
+                                    <table id="testTab2" class="data table table-striped no-margin" style="float:right; width:47%">
+                                        <thead>
+                                            <tr>
+                                                <th>Test Name</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ln_solid"></div>
+                <div class="form-group">
+                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-5">
+                        <button type="submit" class="btn btn-primary" id="submit">Submit</button>
+                        <a class="btn btn-danger" onclick="history.go(-1); return false;" href="#">Cancel</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+
+        $('.datepicker').datepicker();
+
+        $("#medTab1").DataTable({
+            paging: false, info: false, language: { search: "", searchPlaceholder: "Search Medicine" },
+            dom: '<"pull-left"f><"pull-right"l>tip'
+        });
+
+        $("#testTab1").DataTable({
+            paging: false, info: false, language: { search: "", searchPlaceholder: "Search Test" },
+            dom: '<"pull-left"f><"pull-right"l>tip'
+        });
+
+        $("#medTab1").on("click", ".js-add1", function () {
+            var row1 = $(this).closest("TR");
+
+            var itemId1 = $("TD", row1).eq(0).html();
+            var itemId2 = $("TD", row1).eq(1).find("input")[0].value;
+            var itemId3 = $("TD", row1).eq(2).find("select")[0].value;
+
+            var table1 = document.getElementById("medTab1");
+            var table2 = document.getElementById("medTab2").getElementsByTagName('tbody')[0];
+
+
+            var newRow = table2.insertRow(-1),
+            cell0 = newRow.insertCell(0),
+            cell1 = newRow.insertCell(1),
+            cell2 = newRow.insertCell(2),
+            cell3 = newRow.insertCell(3);
+
+
+
+            cell0.innerHTML = itemId1;
+            cell1.innerHTML = itemId2;
+            cell2.innerHTML = itemId3;
+            cell3.innerHTML = "<button type='button' class='btn btn-primary btn-sm js-remove2'>Remove </button>";
+        });
+
+        $("#submit").on("click", function () {
+            var medicine = [];
+            var tests = [];
+            $('#medTab2 >tbody  > tr').each(function () {
+
+                $(this).find("td").each(function () {
+                    $(this).each(function () {
+                        medicine.push($(this).text());
+                    });
+                });
+            });
+
+            $('#testTab2 >tbody  > tr').each(function () {
+
+                $(this).find("td").each(function () {
+                    $(this).each(function () {
+                        tests.push($(this).text());
+                    });
+                });
+            });
+            var model = new Object();
+            model.Medicines = medicine;
+            model.Tests = tests;
+            model.AppointmentId = $("#AppointmentId").val();
+            model.Remark = $("#Remark").val();
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("AddMedicinesAndTests", "Doctor")",
+                data: JSON.stringify(model),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    window.location.href = data
+                },
+                fail: function (errorData) {
+
+                    onError(errorData);
+                }
+            });
+        });
+
+        $("#testTab1").on("click", ".js-add2", function () {
+
+            var row1 = $(this).closest("TR");
+
+            var itemId1 = $("TD", row1).eq(0).html();
+
+            var table1 = document.getElementById("testTab1");
+            var table2 = document.getElementById("testTab2").getElementsByTagName('tbody')[0];
+
+            var newRow = table2.insertRow(-1),
+            cell0 = newRow.insertCell(0),
+            cell1 = newRow.insertCell(1);
+
+
+            cell0.innerHTML = itemId1;
+            cell1.innerHTML = "<button type='button' class='btn btn-primary btn-sm js-remove2'>Remove </button>";
+        });
+
+        $("#testTab2").on('click', '.js-remove2', function () {
+            $(this).closest('tr').remove();
+
+        });
+        $("#medTab2").on('click', '.js-remove2', function () {
+            $(this).closest('tr').remove();
+        });
+    </script>
+}
+
+

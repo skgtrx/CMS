@@ -1,0 +1,588 @@
+﻿@using ClinicManagementSystem.Models
+@model DoctorScheduleViewModel
+@{
+    ViewBag.Title = "Schedule";
+    if (Session["userId"] == null)
+    {
+        Response.Redirect("~/Account/Login");
+    }
+    else if ((int)Session["roleId"] != (int)ClinicManagementSystemDOL.Enums.Roles.Doctor)
+    {
+        Response.Redirect("~/Error.htm");
+    }
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .loader {
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #3498db;
+        width: 60px;
+        height: 60px;
+        -webkit-animation: spin 2s linear infinite; /* Safari */
+        animation: spin 2s linear infinite;
+    }
+
+    /* Safari */
+    @@-webkit-keyframes spin {
+        0% {
+            -webkit-transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
+        }
+    }
+
+    @@keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+</style>
+<div class="loader" style="position: fixed;
+    top: 40%;
+    left: 50%;
+    z-index:99;"></div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <table id="schedule" class="data table table-striped no-margin center-all">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Day of Week</th>
+                            <th>From Time</th>
+                            <th>To Time</th>
+                        </tr>
+                    </thead>
+                    <tbody id="Body">
+                        @{int i = 0;}
+                        <tr>
+                            <td id="Date1">@DateTime.Now.AddDays(i).ToShortDateString()</td>
+                            <td>@DateTime.Now.AddDays(i++).DayOfWeek</td>
+                            <td>
+                                @Html.DropDownListFor(m => m.From, new SelectList(""), new { @style = "width: 100%;", @class = "MakeWide form-control", @id = "From1" })
+                            </td>
+                            <td>
+                                @Html.DropDownListFor(m => m.To, new SelectList(""), new { @style = "width: 100%;", @class = "MakeWide form-control", @id = "To1" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td id="Date2">@DateTime.Now.AddDays(i).ToShortDateString()</td>
+                            <td>@DateTime.Now.AddDays(i++).DayOfWeek</td>
+                            <td>
+                                @Html.DropDownListFor(m => m.From, new SelectList(""), new { @style = "width: 100%;", @class = "MakeWide form-control", @id = "From2" })
+                            </td>
+                            <td>
+                                @Html.DropDownListFor(m => m.To, new SelectList(""), new { @style = "width: 100%;", @class = "MakeWide form-control", @id = "To2" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td id="Date3">@DateTime.Now.AddDays(i).ToShortDateString()</td>
+                            <td>@DateTime.Now.AddDays(i++).DayOfWeek</td>
+                            <td>
+                                @Html.DropDownListFor(m => m.From, new SelectList(""), new { @style = "width: 100%;", @class = "MakeWide form-control", @id = "From3" })
+                            </td>
+                            <td>
+                                @Html.DropDownListFor(m => m.To, new SelectList(""), new { @style = "width: 100%;", @class = "MakeWide form-control", @id = "To3" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td id="Date4">@DateTime.Now.AddDays(i).ToShortDateString()</td>
+                            <td>@DateTime.Now.AddDays(i++).DayOfWeek</td>
+                            <td>
+                                @Html.DropDownListFor(m => m.From, new SelectList(""), new { @style = "width: 100%;", @class = "MakeWide form-control", @id = "From4" })
+                            </td>
+                            <td>
+                                @Html.DropDownListFor(m => m.To, new SelectList(""), new { @style = "width: 100%;", @class = "MakeWide form-control", @id = "To4" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td id="Date5">@DateTime.Now.AddDays(i).ToShortDateString()</td>
+                            <td>@DateTime.Now.AddDays(i++).DayOfWeek</td>
+                            <td>
+                                @Html.DropDownListFor(m => m.From, new SelectList(""), new { @style = "width: 100%;", @class = "MakeWide form-control", @id = "From5" })
+                            </td>
+                            <td>
+                                @Html.DropDownListFor(m => m.To, new SelectList(""), new { @style = "width: 100%;", @class = "MakeWide form-control", @id = "To5" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td id="Date6">@DateTime.Now.AddDays(i).ToShortDateString()</td>
+                            <td>@DateTime.Now.AddDays(i++).DayOfWeek</td>
+                            <td>
+                                @Html.DropDownListFor(m => m.From, new SelectList(""), new { @style = "width: 100%;", @class = "MakeWide form-control", @id = "From6" })
+                            </td>
+                            <td>
+                                @Html.DropDownListFor(m => m.To, new SelectList(""), new { @style = "width: 100%;", @class = "MakeWide form-control", @id = "To6" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td id="Date7">@DateTime.Now.AddDays(i).ToShortDateString()</td>
+                            <td>@DateTime.Now.AddDays(i++).DayOfWeek</td>
+                            <td>
+                                @Html.DropDownListFor(m => m.From, new SelectList(""), new { @style = "width: 100%;", @class = "MakeWide form-control", @id = "From7" })
+                            </td>
+                            <td>
+                                @Html.DropDownListFor(m => m.To, new SelectList(""), new { @style = "width: 100%;", @class = "MakeWide form-control", @id = "To7" })
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="ln_solid"></div>
+                <div class="form-group">
+                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-6">
+                        <button type="submit" class="btn btn-primary" id="submit">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(document).ajaxStart(function () {
+                $(".loader").show();
+                $(".row").hide();
+            });
+            $(document).ajaxStop(function () {
+                $(".loader").hide();
+                $(".row").show();
+            });
+            var selectedFromTimeSlot;
+            var model = new Object();
+            model.Date = $("#Date1").text();
+            model.SelectedSlot = 0;
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("PopulateTimeSlots", "Doctor")",
+                data: JSON.stringify(model),
+                contentType: "application/json; charset=utf-8",
+                success: function (viewHTML) {
+                    $("#From1").html(viewHTML);
+                },
+                fail: function (errorData) {
+
+                    onError(errorData);
+                }
+            });
+            model.Date = $("#Date2").text();
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("PopulateTimeSlots", "Doctor")",
+                data: JSON.stringify(model),
+                contentType: "application/json; charset=utf-8",
+                success: function (viewHTML) {
+                    $("#From2").html(viewHTML);
+                },
+                fail: function (errorData) {
+
+                    onError(errorData);
+                }
+            });
+            model.Date = $("#Date3").text();
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("PopulateTimeSlots", "Doctor")",
+                data: JSON.stringify(model),
+                contentType: "application/json; charset=utf-8",
+                success: function (viewHTML) {
+                    $("#From3").html(viewHTML);
+                },
+                fail: function (errorData) {
+
+                    onError(errorData);
+                }
+            });
+            model.Date = $("#Date4").text();
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("PopulateTimeSlots", "Doctor")",
+                data: JSON.stringify(model),
+                contentType: "application/json; charset=utf-8",
+                success: function (viewHTML) {
+                    $("#From4").html(viewHTML);
+                },
+                fail: function (errorData) {
+
+                    onError(errorData);
+                }
+            });
+            model.Date = $("#Date5").text();
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("PopulateTimeSlots", "Doctor")",
+                data: JSON.stringify(model),
+                contentType: "application/json; charset=utf-8",
+                success: function (viewHTML) {
+                    $("#From5").html(viewHTML);
+                },
+                fail: function (errorData) {
+
+                    onError(errorData);
+                }
+            });
+            model.Date = $("#Date6").text();
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("PopulateTimeSlots", "Doctor")",
+                data: JSON.stringify(model),
+                contentType: "application/json; charset=utf-8",
+                success: function (viewHTML) {
+                    $("#From6").html(viewHTML);
+                },
+                fail: function (errorData) {
+
+                    onError(errorData);
+                }
+            });
+            model.Date = $("#Date7").text();
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("PopulateTimeSlots", "Doctor")",
+                data: JSON.stringify(model),
+                contentType: "application/json; charset=utf-8",
+                success: function (viewHTML) {
+                    $("#From7").html(viewHTML);
+                },
+                fail: function (errorData) {
+
+                    onError(errorData);
+                }
+            });
+
+            model.Date = $("#Date1").text();
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("PopulateToTimeSlots", "Doctor")",
+                data: JSON.stringify(model),
+                contentType: "application/json; charset=utf-8",
+                success: function (viewHTML) {
+                    $("#To1").html(viewHTML);
+                },
+                fail: function (errorData) {
+
+                    onError(errorData);
+                }
+            });
+            model.Date = $("#Date2").text();
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("PopulateToTimeSlots", "Doctor")",
+                data: JSON.stringify(model),
+                contentType: "application/json; charset=utf-8",
+                success: function (viewHTML) {
+                    $("#To2").html(viewHTML);
+                },
+                fail: function (errorData) {
+
+                    onError(errorData);
+                }
+            });
+            model.Date = $("#Date3").text();
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("PopulateToTimeSlots", "Doctor")",
+                data: JSON.stringify(model),
+                contentType: "application/json; charset=utf-8",
+                success: function (viewHTML) {
+                    $("#To3").html(viewHTML);
+                },
+                fail: function (errorData) {
+
+                    onError(errorData);
+                }
+            });
+            model.Date = $("#Date4").text();
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("PopulateToTimeSlots", "Doctor")",
+                data: JSON.stringify(model),
+                contentType: "application/json; charset=utf-8",
+                success: function (viewHTML) {
+                    $("#To4").html(viewHTML);
+                },
+                fail: function (errorData) {
+
+                    onError(errorData);
+                }
+            });
+            model.Date = $("#Date5").text();
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("PopulateToTimeSlots", "Doctor")",
+                data: JSON.stringify(model),
+                contentType: "application/json; charset=utf-8",
+                success: function (viewHTML) {
+                    $("#To5").html(viewHTML);
+                },
+                fail: function (errorData) {
+
+                    onError(errorData);
+                }
+            });
+            model.Date = $("#Date6").text();
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("PopulateToTimeSlots", "Doctor")",
+                data: JSON.stringify(model),
+                contentType: "application/json; charset=utf-8",
+                success: function (viewHTML) {
+                    $("#To6").html(viewHTML);
+                },
+                fail: function (errorData) {
+
+                    onError(errorData);
+                }
+            });
+            model.Date = $("#Date7").text();
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("PopulateToTimeSlots", "Doctor")",
+                data: JSON.stringify(model),
+                contentType: "application/json; charset=utf-8",
+                success: function (viewHTML) {
+                    $("#To7").html(viewHTML);
+                },
+                fail: function (errorData) {
+
+                    onError(errorData);
+                }
+            });
+            var table = $("#schedule").DataTable({
+                searching: false, paging: false, info: false
+            });
+            //$(".loader").hide();
+        });
+
+        $("#From1").change(function () {
+            var model = new Object();
+            model.SelectedSlot = $("#From1 option:selected").val();
+            model.Date = $("#Date1").text();
+            if ($("#From1 option:selected").val() == "select") {
+                $("#To1").empty();
+            }
+            if ($("#From1 option:selected").val() != "select") {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("PopulateTimeSlots", "Doctor")",
+                    data: JSON.stringify(model),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (viewHTML) {
+                        $("#To1").html(viewHTML);
+                    },
+                    fail: function (errorData) {
+
+                        onError(errorData);
+                    }
+                });
+            }
+
+        });
+        $("#From2").change(function () {
+            var model = new Object();
+            model.SelectedSlot = $("#From2 option:selected").val();
+            model.Date = $("#Date2").text();
+            if ($("#From2 option:selected").val() == "select") {
+                $("#To2").empty();
+            }
+            if ($("#From2 option:selected").val() != "select") {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("PopulateTimeSlots", "Doctor")",
+                    data: JSON.stringify(model),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (viewHTML) {
+                        $("#To2").html(viewHTML);
+                    },
+                    fail: function (errorData) {
+
+                        onError(errorData);
+                    }
+                });
+            }
+        });
+        $("#From3").change(function () {
+            var model = new Object();
+            model.SelectedSlot = $("#From3 option:selected").val();
+            model.Date = $("#Date3").text();
+            if ($("#From3 option:selected").val() == "select") {
+                $("#To3").empty();
+            }
+            if ($("#From3 option:selected").val() != "select") {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("PopulateTimeSlots", "Doctor")",
+                    data: JSON.stringify(model),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (viewHTML) {
+                        $("#To3").html(viewHTML);
+                    },
+                    fail: function (errorData) {
+
+                        onError(errorData);
+                    }
+                });
+            }
+        });
+        $("#From4").change(function () {
+            var model = new Object();
+            model.SelectedSlot = $("#From4 option:selected").val();
+            model.Date = $("#Date4").text();
+            if ($("#From4 option:selected").val() == "select") {
+                $("#To4").empty();
+            }
+            if ($("#From4 option:selected").val() != "select") {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("PopulateTimeSlots", "Doctor")",
+                    data: JSON.stringify(model),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (viewHTML) {
+                        $("#To4").html(viewHTML);
+                    },
+                    fail: function (errorData) {
+
+                        onError(errorData);
+                    }
+                });
+            }
+        });
+        $("#From5").change(function () {
+            var model = new Object();
+            model.SelectedSlot = $("#From5 option:selected").val();
+            model.Date = $("#Date5").text();
+            if ($("#From5 option:selected").val() == "select") {
+                $("#To5").empty();
+            }
+            if ($("#From5 option:selected").val() != "select") {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("PopulateTimeSlots", "Doctor")",
+                    data: JSON.stringify(model),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (viewHTML) {
+                        $("#To5").html(viewHTML);
+                    },
+                    fail: function (errorData) {
+
+                        onError(errorData);
+                    }
+                });
+            }
+        });
+        $("#From6").change(function () {
+            var model = new Object();
+            model.SelectedSlot = $("#From6 option:selected").val();
+            model.Date = $("#Date6").text();
+            if ($("#From6 option:selected").val() == "select") {
+                $("#To6").empty();
+            }
+            if ($("#From6 option:selected").val() != "select") {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("PopulateTimeSlots", "Doctor")",
+                    data: JSON.stringify(model),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (viewHTML) {
+                        $("#To6").html(viewHTML);
+                    },
+                    fail: function (errorData) {
+
+                        onError(errorData);
+                    }
+                });
+            }
+        });
+        $("#From7").change(function () {
+            var model = new Object();
+            model.SelectedSlot = $("#From7 option:selected").val();
+            model.Date = $("#Date7").text();
+            if ($("#From7 option:selected").val() == "select") {
+                $("#To7").empty();
+            }
+            if ($("#From7 option:selected").val() != "select") {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("PopulateTimeSlots", "Doctor")/",
+                    data: JSON.stringify(model),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (viewHTML) {
+                        $("#To7").html(viewHTML);
+                    },
+                    fail: function (errorData) {
+
+                        onError(errorData);
+                    }
+                });
+            }
+        });
+        $("#submit").on("click", function () {
+            var availability = [];
+            if ($("#To1 option:selected").val() != undefined && $("#To1 option:selected").val() != "selected") {
+                availability.push($("#Date1").text());
+                availability.push($("#From1 option:selected").val());
+                availability.push($("#To1 option:selected").val());
+            }
+            if ($("#To2 option:selected").val() != undefined && $("#To2 option:selected").val() != "selected") {
+                availability.push($("#Date2").text());
+                availability.push($("#From2 option:selected").val());
+                availability.push($("#To2 option:selected").val());
+            }
+            if ($("#To3 option:selected").val() != undefined && $("#To3 option:selected").val() != "selected") {
+                availability.push($("#Date3").text());
+                availability.push($("#From3 option:selected").val());
+                availability.push($("#To3 option:selected").val());
+            }
+            if ($("#To4 option:selected").val() != undefined && $("#To4 option:selected").val() != "selected") {
+                availability.push($("#Date4").text());
+                availability.push($("#From4 option:selected").val());
+                availability.push($("#To4 option:selected").val());
+            }
+            if ($("#To5 option:selected").val() != undefined && $("#To5 option:selected").val() != "selected") {
+                availability.push($("#Date5").text());
+                availability.push($("#From5 option:selected").val());
+                availability.push($("#To5 option:selected").val());
+            }
+            if ($("#To6 option:selected").val() != undefined && $("#To6 option:selected").val() != "selected") {
+                availability.push($("#Date6").text());
+                availability.push($("#From6 option:selected").val());
+                availability.push($("#To6 option:selected").val());
+            }
+            if ($("#To7 option:selected").val() != undefined && $("#To7 option:selected").val() != "selected") {
+                availability.push($("#Date7").text());
+                availability.push($("#From7 option:selected").val());
+                availability.push($("#To7 option:selected").val());
+            }
+            var model = new Object();
+            model.Availability = availability;
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("DoctorScheduleSet", "Doctor")",
+                data: JSON.stringify(model),
+                contentType: "application/json; charset=utf-8",
+                success: function (returnUrl) {
+                    if (returnUrl.toString().indexOf("Home") != -1) {
+                        alert("succesfully updated");
+                    }
+                    window.location.href = returnUrl;
+                },
+                fail: function (errorData) {
+
+                    onError(errorData);
+                }
+            });
+        });
+    </script>
+}

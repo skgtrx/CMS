@@ -1,0 +1,65 @@
+﻿@model IList<ClinicManagementSystemDOL.Models.Appointment>
+@{
+    ViewBag.Title = "Report By Status";
+    if (Session["userId"] == null)
+    {
+        Response.Redirect("~/Account/Login");
+    }
+    else if ((int)Session["roleId"] != (int)ClinicManagementSystemDOL.Enums.Roles.Admin &&
+        (int)Session["roleId"] != (int)ClinicManagementSystemDOL.Enums.Roles.Assistant)
+    {
+        Response.Redirect("~/Error.htm");
+    }
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    #renderTable {
+        background-color: white;
+    }
+</style>
+<div class="row">
+    <div class="well" style="overflow: auto">
+        <form id="form1">
+            <div class="col-sm-3">
+            </div>
+            <div class="col-sm-3">
+                <select name="option" class="form-control">
+                    <option value="">--Select one--</option>
+                    <option value="ThisMonth">This Month </option>
+                    <option value="Pending">Pending </option>
+                    <option value="Open">Open </option>
+                    <option value="Closed">Closed </option>
+                    <option value="Rejected">Rejected </option>
+                </select>
+            </div>
+            <div class="col-sm-3">
+                <input type="button" class="btn btn-primary" value="Submit" id="submit" />
+                <input type="button" class="btn btn-default" id="showAll" value="Show All" />
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
+            <div id="renderTable" class="x_content">
+                @Html.Partial("_Appointments")
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $('#submit').on('click', function () {
+                $('#renderTable').load("Appointment", $('#form1').serialize());
+            });
+        });
+
+
+        $('#showAll').on('click', function () {
+            location.reload(true);
+        });
+    </script>
+}

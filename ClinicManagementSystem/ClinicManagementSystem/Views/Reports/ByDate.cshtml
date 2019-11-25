@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "Report By Date";
+    if (Session["userId"] == null)
+    {
+        Response.Redirect("~/Account/Login");
+    }
+    else if ((int)Session["roleId"] != (int)ClinicManagementSystemDOL.Enums.Roles.Admin &&
+        (int)Session["roleId"] != (int)ClinicManagementSystemDOL.Enums.Roles.Assistant)
+    {
+        Response.Redirect("~/Error.htm");
+    }
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    #renderTable {
+        background-color: white;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12">
+        <!-- form date pickers -->
+        <div class="x_panel" style="">
+            <div class="x_content">
+                <div class="well" style="overflow: auto">
+                    <div class="col-md-6">
+                        <form id="form1">
+                            <label>Enter Date: </label>
+                            <input type="text" name="getDate" class="datepicker" />
+                            <input type="button" class="btn btn-primary btn-sm" value="Ok" id="submit" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
+            <div id="renderTable" class="x_content">
+                @Html.Partial("_Appointments")
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts
+{
+    <script>
+        $('.datepicker').datepicker({
+            autoclose: true
+        });
+
+        $(document).ready(function () {
+            $('#renderTable').hide();
+            $('#submit').on('click', function () {
+                $('#renderTable').show();
+                $('#renderTable').load("Daily", $('#form1').serialize());
+            });
+        });
+    </script>
+}

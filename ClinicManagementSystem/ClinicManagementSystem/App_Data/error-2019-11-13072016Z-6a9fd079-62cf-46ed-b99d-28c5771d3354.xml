@@ -1,0 +1,206 @@
+﻿<error errorId="6a9fd079-62cf-46ed-b99d-28c5771d3354" application="/LM/W3SVC/2/ROOT" host="APT04-H9TL8Y2" type="System.Data.Entity.Validation.DbEntityValidationException" message="Validation failed for one or more entities. See 'EntityValidationErrors' property for more details." source="ClinicManagementSystemBL" detail="System.Data.Entity.Validation.DbEntityValidationException: Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.&#xD;&#xA;   at ClinicManagementSystemBL.DoctorEdit.UpdateDoctor(Users user) in C:\Users\trajanna\Desktop\BC_2019Team4\ClinicManagementSystem\ClinicManagementSystemBL\DoctorEdit.cs:line 22&#xD;&#xA;   at ClinicManagementSystem.Controllers.DoctorController.EditProfile(DoctorProfileEditViewModel model, String returnUrl) in C:\Users\trajanna\Desktop\BC_2019Team4\ClinicManagementSystem\ClinicManagementSystem\Controllers\DoctorController.cs:line 88&#xD;&#xA;   at lambda_method(Closure , ControllerBase , Object[] )&#xD;&#xA;   at System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)&#xD;&#xA;   at System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)&#xD;&#xA;   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncControllerActionInvoker.&lt;&gt;c.&lt;BeginInvokeSynchronousActionMethod&gt;b__9_0(IAsyncResult asyncResult, ActionInvocation innerInvokeState)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()&#xD;&#xA;   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.&lt;&gt;c__DisplayClass11_0.&lt;InvokeActionMethodFilterAsynchronouslyRecursive&gt;b__0()&#xD;&#xA;   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.&lt;&gt;c__DisplayClass11_2.&lt;InvokeActionMethodFilterAsynchronouslyRecursive&gt;b__2()&#xD;&#xA;   at System.Web.Mvc.Async.AsyncControllerActionInvoker.&lt;&gt;c__DisplayClass7_0.&lt;BeginInvokeActionMethodWithFilters&gt;b__1(IAsyncResult asyncResult)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()&#xD;&#xA;   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)&#xD;&#xA;   at System.Web.Mvc.Async.AsyncControllerActionInvoker.&lt;&gt;c__DisplayClass3_6.&lt;BeginInvokeAction&gt;b__4()&#xD;&#xA;   at System.Web.Mvc.Async.AsyncControllerActionInvoker.&lt;&gt;c__DisplayClass3_1.&lt;BeginInvokeAction&gt;b__1(IAsyncResult asyncResult)" time="2019-11-13T07:20:16.2384853Z">
+  <serverVariables>
+    <item name="ALL_HTTP">
+      <value string="HTTP_CACHE_CONTROL:max-age=0&#xD;&#xA;HTTP_CONNECTION:Keep-Alive&#xD;&#xA;HTTP_CONTENT_LENGTH:277&#xD;&#xA;HTTP_CONTENT_TYPE:application/x-www-form-urlencoded&#xD;&#xA;HTTP_ACCEPT:text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#xD;&#xA;HTTP_ACCEPT_ENCODING:gzip, deflate&#xD;&#xA;HTTP_ACCEPT_LANGUAGE:en-US,en;q=0.5&#xD;&#xA;HTTP_COOKIE:__RequestVerificationToken=M8Hx-OiYOroG35wfbrUfdScRy61IPd4FpHHTzEUt9ATMXpLwIpHQem0mEsBGQbT87yYWRos0GrERG-LWVxKcx6FFaFKtz1R1VO_XZGA7W801; ASP.NET_SessionId=cs2gq1msdtlhxmvkh34idwbg&#xD;&#xA;HTTP_HOST:localhost:54698&#xD;&#xA;HTTP_REFERER:http://localhost:54698/Doctor/Profile/Edit&#xD;&#xA;HTTP_USER_AGENT:Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.18362&#xD;&#xA;HTTP_UPGRADE_INSECURE_REQUESTS:1&#xD;&#xA;" />
+    </item>
+    <item name="ALL_RAW">
+      <value string="Cache-Control: max-age=0&#xD;&#xA;Connection: Keep-Alive&#xD;&#xA;Content-Length: 277&#xD;&#xA;Content-Type: application/x-www-form-urlencoded&#xD;&#xA;Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#xD;&#xA;Accept-Encoding: gzip, deflate&#xD;&#xA;Accept-Language: en-US,en;q=0.5&#xD;&#xA;Cookie: __RequestVerificationToken=M8Hx-OiYOroG35wfbrUfdScRy61IPd4FpHHTzEUt9ATMXpLwIpHQem0mEsBGQbT87yYWRos0GrERG-LWVxKcx6FFaFKtz1R1VO_XZGA7W801; ASP.NET_SessionId=cs2gq1msdtlhxmvkh34idwbg&#xD;&#xA;Host: localhost:54698&#xD;&#xA;Referer: http://localhost:54698/Doctor/Profile/Edit&#xD;&#xA;User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.18362&#xD;&#xA;Upgrade-Insecure-Requests: 1&#xD;&#xA;" />
+    </item>
+    <item name="APPL_MD_PATH">
+      <value string="/LM/W3SVC/2/ROOT" />
+    </item>
+    <item name="APPL_PHYSICAL_PATH">
+      <value string="C:\Users\trajanna\Desktop\BC_2019Team4\ClinicManagementSystem\ClinicManagementSystem\" />
+    </item>
+    <item name="AUTH_TYPE">
+      <value string="" />
+    </item>
+    <item name="AUTH_USER">
+      <value string="" />
+    </item>
+    <item name="AUTH_PASSWORD">
+      <value string="*****" />
+    </item>
+    <item name="LOGON_USER">
+      <value string="" />
+    </item>
+    <item name="REMOTE_USER">
+      <value string="" />
+    </item>
+    <item name="CERT_COOKIE">
+      <value string="" />
+    </item>
+    <item name="CERT_FLAGS">
+      <value string="" />
+    </item>
+    <item name="CERT_ISSUER">
+      <value string="" />
+    </item>
+    <item name="CERT_KEYSIZE">
+      <value string="" />
+    </item>
+    <item name="CERT_SECRETKEYSIZE">
+      <value string="" />
+    </item>
+    <item name="CERT_SERIALNUMBER">
+      <value string="" />
+    </item>
+    <item name="CERT_SERVER_ISSUER">
+      <value string="" />
+    </item>
+    <item name="CERT_SERVER_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="CERT_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="CONTENT_LENGTH">
+      <value string="277" />
+    </item>
+    <item name="CONTENT_TYPE">
+      <value string="application/x-www-form-urlencoded" />
+    </item>
+    <item name="GATEWAY_INTERFACE">
+      <value string="CGI/1.1" />
+    </item>
+    <item name="HTTPS">
+      <value string="off" />
+    </item>
+    <item name="HTTPS_KEYSIZE">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SECRETKEYSIZE">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SERVER_ISSUER">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SERVER_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="INSTANCE_ID">
+      <value string="2" />
+    </item>
+    <item name="INSTANCE_META_PATH">
+      <value string="/LM/W3SVC/2" />
+    </item>
+    <item name="LOCAL_ADDR">
+      <value string="::1" />
+    </item>
+    <item name="PATH_INFO">
+      <value string="/Doctor/Profile/Edit" />
+    </item>
+    <item name="PATH_TRANSLATED">
+      <value string="C:\Users\trajanna\Desktop\BC_2019Team4\ClinicManagementSystem\ClinicManagementSystem\Doctor\Profile\Edit" />
+    </item>
+    <item name="QUERY_STRING">
+      <value string="" />
+    </item>
+    <item name="REMOTE_ADDR">
+      <value string="::1" />
+    </item>
+    <item name="REMOTE_HOST">
+      <value string="::1" />
+    </item>
+    <item name="REMOTE_PORT">
+      <value string="50114" />
+    </item>
+    <item name="REQUEST_METHOD">
+      <value string="POST" />
+    </item>
+    <item name="SCRIPT_NAME">
+      <value string="/Doctor/Profile/Edit" />
+    </item>
+    <item name="SERVER_NAME">
+      <value string="localhost" />
+    </item>
+    <item name="SERVER_PORT">
+      <value string="54698" />
+    </item>
+    <item name="SERVER_PORT_SECURE">
+      <value string="0" />
+    </item>
+    <item name="SERVER_PROTOCOL">
+      <value string="HTTP/1.1" />
+    </item>
+    <item name="SERVER_SOFTWARE">
+      <value string="Microsoft-IIS/10.0" />
+    </item>
+    <item name="URL">
+      <value string="/Doctor/Profile/Edit" />
+    </item>
+    <item name="HTTP_CACHE_CONTROL">
+      <value string="max-age=0" />
+    </item>
+    <item name="HTTP_CONNECTION">
+      <value string="Keep-Alive" />
+    </item>
+    <item name="HTTP_CONTENT_LENGTH">
+      <value string="277" />
+    </item>
+    <item name="HTTP_CONTENT_TYPE">
+      <value string="application/x-www-form-urlencoded" />
+    </item>
+    <item name="HTTP_ACCEPT">
+      <value string="text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8" />
+    </item>
+    <item name="HTTP_ACCEPT_ENCODING">
+      <value string="gzip, deflate" />
+    </item>
+    <item name="HTTP_ACCEPT_LANGUAGE">
+      <value string="en-US,en;q=0.5" />
+    </item>
+    <item name="HTTP_COOKIE">
+      <value string="__RequestVerificationToken=M8Hx-OiYOroG35wfbrUfdScRy61IPd4FpHHTzEUt9ATMXpLwIpHQem0mEsBGQbT87yYWRos0GrERG-LWVxKcx6FFaFKtz1R1VO_XZGA7W801; ASP.NET_SessionId=cs2gq1msdtlhxmvkh34idwbg" />
+    </item>
+    <item name="HTTP_HOST">
+      <value string="localhost:54698" />
+    </item>
+    <item name="HTTP_REFERER">
+      <value string="http://localhost:54698/Doctor/Profile/Edit" />
+    </item>
+    <item name="HTTP_USER_AGENT">
+      <value string="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.18362" />
+    </item>
+    <item name="HTTP_UPGRADE_INSECURE_REQUESTS">
+      <value string="1" />
+    </item>
+  </serverVariables>
+  <form>
+    <item name="__RequestVerificationToken">
+      <value string="crWXX2bEWA20SZ4XIRi3jnvF8Qkk8ZhY-tlSsXqSixt5d3KR37-JZ-Hn721NVWEgK6DDXXEro_ziWufLEFyLY7CRtQFix_42dqxJ0FwlEVY1" />
+    </item>
+    <item name="FirstName">
+      <value string="Raj" />
+    </item>
+    <item name="LastName">
+      <value string="Tri" />
+    </item>
+    <item name="DateOfBirth">
+      <value string="03/28/1997" />
+    </item>
+    <item name="Address">
+      <value string="rajajinagar" />
+    </item>
+    <item name="Phone">
+      <value string="9738285669" />
+    </item>
+    <item name="Email">
+      <value string="tj@gmail.com" />
+    </item>
+    <item name="NewPassword">
+      <value string="" />
+    </item>
+    <item name="ConfirmPassword">
+      <value string="" />
+    </item>
+  </form>
+  <cookies>
+    <item name="__RequestVerificationToken">
+      <value string="M8Hx-OiYOroG35wfbrUfdScRy61IPd4FpHHTzEUt9ATMXpLwIpHQem0mEsBGQbT87yYWRos0GrERG-LWVxKcx6FFaFKtz1R1VO_XZGA7W801" />
+    </item>
+    <item name="ASP.NET_SessionId">
+      <value string="cs2gq1msdtlhxmvkh34idwbg" />
+    </item>
+  </cookies>
+</error>

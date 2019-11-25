@@ -1,0 +1,66 @@
+﻿@using ClinicManagementSystem.Models
+@model List<MedicalHistoryViewModel>
+@{
+    ViewBag.Title = "Medical History";
+    if (Session["userId"] == null)
+    {
+        Response.Redirect("~/Account/Login");
+    }
+    else if ((int)Session["roleId"] != (int)ClinicManagementSystemDOL.Enums.Roles.Doctor)
+    {
+        Response.Redirect("~/Error.htm");
+    }
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h3>Patient Medical History</h3>
+                <div class="clearfix"></div>
+            </div>
+            @foreach (var item in Model)
+            {
+                <div class="x_content">
+                    <table id="appointments" class="data no-margin">
+                        <thead></thead>
+                        <tbody>
+                            <tr>
+                                <td>Appointment Date</td>
+                                <td>: @item.DiagnosisHistories.Appointment.Date.ToShortDateString()</td>
+                            </tr>
+                            <tr>
+                                <td>Patient Name </td>
+                                <td>: @item.DiagnosisHistories.Appointment.Patient.FirstName @item.DiagnosisHistories.Appointment.Patient.LastName</td>
+                            </tr>
+                            <tr>
+                                <td>Doctor Name </td>
+                                <td>: @item.DiagnosisHistories.Appointment.Doctor.FirstName @item.DiagnosisHistories.Appointment.Doctor.LastName</td>
+                            </tr>
+                            <tr>
+                                <td>Remark </td>
+                                <td>: @item.DiagnosisHistories.Remark</td>
+                            </tr>
+                            <tr>
+                                <td>Medicines </td>
+                                <td>: @string.Join(", ", @item.MedicineList.Select(t => t.Medicines.Name).ToList())</td>
+                            </tr>
+                            <tr>
+                                <td>Tests </td>
+                                <td>: @string.Join(", ", @item.TestList.Select(t => t.Tests.Name).ToList())</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            }
+            <div class="col-md-12 col-sm-12 col-xs-12" style="text-align:right">
+                <a class="btn btn-primary btn-sm" onclick="history.go(-1); return false;" href="#">Back</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+@section scripts{
+    <script>
+    </script>
+}

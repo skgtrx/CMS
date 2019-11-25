@@ -1,0 +1,103 @@
+﻿@using ClinicManagementSystem.Models;
+@model InvoiceViewModel
+@using ClinicManagementSystemDOL.Enums;
+@{
+    ViewBag.Title = "Patient Invoice";
+    if (Session["userId"] == null)
+    {
+        Response.Redirect("~/Account/Login");
+    }
+    else if ((int)Session["roleId"] != (int)ClinicManagementSystemDOL.Enums.Roles.Patient)
+    {
+        Response.Redirect("~/Error.htm");
+    }
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h3><u>Token No. @Model.Diagnosis.AppointmentId</u></h3>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>Name: @Model.Invoice.Appointment.Patient.FirstName @Model.Invoice.Appointment.Patient.LastName</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Phone: @Model.Invoice.Appointment.Patient.Phone</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Age: @Model.Age</td>
+                        </tr>
+                        <tr>
+                            <td>Date: @Model.Invoice.InvoiceDateTime</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <table id="invoice_data" class="data table table-striped no-margin">
+                                <thead>
+                                    <tr>
+                                        <th>Description</th>
+                                        <th>Rate</th>
+                                        <th>Quantity</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Doctor Fee</td>
+                                        <td>@Model.DoctorFee</td>
+                                        <td>-</td>
+                                        <td>@Model.DoctorFee</td>
+                                    </tr>
+                                    @foreach (var item in Model.Medicines)
+                                    {
+                                        <tr>
+                                            <td>@item.Medicines.Name (Medicine)</td>
+                                            <td>@item.Medicines.Cost</td>
+                                            <td>@item.Quantity</td>
+                                            <td>@(item.Quantity * item.Medicines.Cost)</td>
+                                        </tr>
+                                    }
+                                    @foreach (var item in Model.Tests)
+                                    {
+                                        <tr>
+                                            <td>@item.Tests.Name (Test)</td>
+                                            <td>@item.Tests.Cost</td>
+                                            <td>-</td>
+                                            <td>@item.Tests.Cost</td>
+                                        </tr>
+                                    }
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td>TOTAL</td>
+                                        <td>@Model.Invoice.TotalCost</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12" style="text-align:right">
+                <a class="btn btn-primary btn-sm" onclick="history.go(-1); return false;" href="#">Back</a>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script>
+        var popup;
+
+        $(document).ready(function () {
+            var age = (@DateTime.Now.Date.Subtract(Model.Diagnosis.Appointment.Patient.DateOfBirth).TotalDays)/365;
+            age = age/365;
+        });
+    </script>
+}

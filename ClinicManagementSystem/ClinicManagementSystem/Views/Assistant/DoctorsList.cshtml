@@ -1,0 +1,49 @@
+﻿@model IEnumerable<ClinicManagementSystem.Models.DoctorsListViewModel>
+@{
+    Layout = null;
+}
+
+@foreach (var item in Model)
+{
+    <div class="top_tiles">
+        <div class="col-lg-6 col-md-3 col-sm-6 col-xs-12">
+            <div class="tile-stats">
+                <img class="img-responsive avatar-view" src="~/Content/images/user.png" alt="Avatar" align="right">
+                &nbsp;<h3>&nbsp;  @item.FirstName @item.LastName</h3>
+                <div class="col-lg-6 col-md-3 col-sm-6 col-xs-12">&nbsp; &nbsp; <b>@item.Email</b></div><br />
+                <div class="col-lg-6 col-md-3 col-sm-6 col-xs-12">
+                    <h4 style="margin:0px;padding-bottom:8px;padding-top:3px">&nbsp; &nbsp;Specialization: </h4>
+                    @if (item.Specialization.Count() > 3)
+                    {
+                        @(string.Join(", ", item.Specialization.GetRange(0, 3)))
+                        foreach (var specialization in item.Specialization.GetRange(0, 3))
+                        {
+                            <h6 style="margin:0;padding:0;"><b> &nbsp; &nbsp; &nbsp;  &nbsp;  @specialization</b></h6>
+                        }
+                    }
+                    else
+                    {
+
+                        foreach (var specialization in item.Specialization)
+                        {
+                            <h6 style="margin:0;padding:0;"><b>&nbsp;  &nbsp;  &nbsp;  &nbsp;  @specialization</b></h6>
+                        }
+                    }
+                </div><br />
+                <div style="margin-top:60px;margin-bottom:0px">
+                    <div class="col-lg-6 col-md-3 col-sm-6 col-xs-12 bottom">
+                        @if (item.Availability)
+                        {
+                            <p><a href="@Url.Action("BookAppointment","Assistant",new { id=item.DoctorId,date=item.SelectedDate})" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i>Book Appointment</a></p>
+                        }
+                        else
+                        {
+                            <p><a href="#" style="padding: 3px 10px 3px 10px; background-color:red " class="badge" readonly name="Unavailable">Unavailable</a></p>
+                        }
+                    </div>
+                </div>
+                <p><br /></p>
+            </div>
+        </div>
+    </div>
+}

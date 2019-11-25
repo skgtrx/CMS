@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "Report By Patient";
+    if (Session["userId"] == null)
+    {
+        Response.Redirect("~/Account/Login");
+    }
+    else if ((int)Session["roleId"] != (int)ClinicManagementSystemDOL.Enums.Roles.Admin &&
+        (int)Session["roleId"] != (int)ClinicManagementSystemDOL.Enums.Roles.Assistant)
+    {
+        Response.Redirect("~/Error.htm");
+    }
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    #renderTable {
+        background-color: white;
+    }
+    input:invalid {
+      border: 2px dashed red;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12">
+        <!-- form date pickers -->
+        <div class="x_panel" style="">
+            <div class="x_content">
+                <div class="well" style="overflow: auto">
+                    <div class="col-md-6">
+                        <form id="form1">
+                            <label>Enter Phone No: </label>
+                            <input type="number" name="phoneNumber" pattern="[0-9]{10,10}" title="10 digit mobile number">
+                            <input type="button" class="btn btn-primary btn-sm" value="Ok" id="submit" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
+            <div id="renderTable" class="x_content">
+                @Html.Partial("_Appointments")
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts
+{
+    <script>
+
+        $(document).ready(function () {
+            $('#renderTable').hide();
+            $('#submit').on('click', function () {
+                $('#renderTable').show();
+                $('#renderTable').load("Patient", $('#form1').serialize());
+            });
+        });
+    </script>
+}

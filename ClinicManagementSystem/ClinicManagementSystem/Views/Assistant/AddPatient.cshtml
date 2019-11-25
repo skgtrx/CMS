@@ -1,0 +1,123 @@
+﻿@using ClinicManagementSystem.Models
+@model RegisterViewModel
+@{
+    ViewBag.Title = "Add Patient";
+    if (Session["userId"] == null)
+    {
+        Response.Redirect("~/Account/Login");
+    }
+    else if ((int)Session["roleId"] != (int)ClinicManagementSystemDOL.Enums.Roles.Assistant)
+    {
+        Response.Redirect("~/Error.htm");
+    }
+}
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h3>Add Patient </h3>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                @using (Html.BeginForm("AddPatient", "Assistant", FormMethod.Post, new { @class = "form-horizontal form-label-left" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">First Name <span class="required">*</span></label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control col-md-7 col-xs-12", autofocus = "true" })
+                            @Html.ValidationMessageFor(m => m.FirstName)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Last Name <span class="required">*</span></label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control col-md-7 col-xs-12", autofocus = "true" })
+                            @Html.ValidationMessageFor(m => m.LastName)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Email <span class="required">*</span></label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control col-md-7 col-xs-12" })
+                            @Html.ValidationMessageFor(m => m.Email)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Address <span class="required">*</span></label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            @Html.TextBoxFor(m => m.Address, new { @class = "form-control col-md-7 col-xs-12" })
+                            @Html.ValidationMessageFor(m => m.Address)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3 col-xs-12">Phone <span class="required">*</span></label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            @Html.TextBoxFor(m => m.Phone, new { @class = "form-control col-md-7 col-xs-12" })
+                            @Html.ValidationMessageFor(m => m.Phone)
+                        </div>
+                    </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender <span class="required">*</span></label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.EnumDropDownListFor(m => m.Gender, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.Gender)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Date Of Birth <span class="required">*</span></label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.TextBoxFor(m => m.DateOfBirth, "{0:MM/dd/yyyy}", new { @class = "form-control datepicker" })
+                                @Html.ValidationMessageFor(m => m.DateOfBirth)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Conservator Name <span class="required">*</span></label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.TextBoxFor(m => m.ConservatorName, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.ConservatorName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Conservator Phone <span class="required">*</span></label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.TextBoxFor(m => m.ConservatorPhone, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.ConservatorPhone, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Conservator Relation <span class="required">*</span></label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.TextBoxFor(m => m.ConservatorRelation, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.ConservatorRelation, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Password <span class="required">*</span> </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                @Html.TextBoxFor(m => m.Password, new { @class = "form-control col-md-7 col-xs-12", @readonly = true })
+                            </div>
+                        </div>
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <a class="btn btn-danger" onclick="history.go(-1); return false;" href="#">Cancel</a>
+                            </div>
+                        </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $('.datepicker').datepicker();
+    </script>
+}

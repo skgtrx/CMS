@@ -1,0 +1,114 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    if (Session["userId"] == null)
+    {
+        Response.Redirect("~/Account/Login");
+    }
+}
+
+<!-- top tiles -->
+@if ((int)Session["roleId"] == (int)ClinicManagementSystemDOL.Enums.Roles.Admin || (int)Session["roleId"] == (int)ClinicManagementSystemDOL.Enums.Roles.Assistant)
+{
+    <div class="row top_tiles">
+        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="tile-stats">
+                <div class="icon"><i class="fa fa-caret-square-o-right"></i></div>
+                <div class="count patients"></div>
+                <h3>Total Patients</h3>
+                <p><br /></p>
+            </div>
+        </div>
+        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="tile-stats">
+                <div class="icon"><i class="fa fa-comments-o"></i></div>
+                <div class="count appointments"></div>
+                <h3>Total Appointments</h3>
+                <p class="count_bottom"><i class="green todaysappointments"> </i>  For Today</p>
+            </div>
+        </div>
+        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="tile-stats">
+                <div class="icon"><i class="fa fa-sort-amount-desc"></i></div>
+                <div class="count doctors"></div>
+                <h3>Total Doctors</h3>
+                @*<p class="count_bottom"><i class="green availabledoctors"> </i> Doctors Available</p>*@
+                <p>&nbsp; </p>
+            </div>
+        </div>
+        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="tile-stats">
+                <div class="icon"><i class="fa fa-check-square-o"></i></div>
+                <div class="count users"></div>
+                <h3>Total Users</h3>
+                <p><br /></p>
+            </div>
+        </div>
+    </div>
+}
+@if ((int)Session["roleId"] == (int)ClinicManagementSystemDOL.Enums.Roles.Patient)
+{
+    <div class="row top_tiles">
+        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="tile-stats">
+                <div class="icon"><i class="fa fa-caret-square-o-right"></i></div>
+                <div class="count upcomingappointments"></div><br />
+                <h3>Upcoming Appointments</h3>
+            </div>
+        </div>
+        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="tile-stats">
+                <div class="icon"><i class="fa fa-comments-o"></i></div>
+                <div class="count totalappointments"></div><br />
+                <h3><br />Total Appointments</h3>
+            </div>
+        </div>
+        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="tile-stats">
+                <div class="icon"><i class="fa fa-sort-amount-desc"></i></div>
+                <div class="count pendingappointments"></div><br />
+                <h3>Pending Appointments</h3>
+            </div>
+        </div>
+    </div>
+}
+@if ((int)Session["roleId"] == (int)ClinicManagementSystemDOL.Enums.Roles.Doctor)
+{
+    <div class="row top_tiles">
+        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="tile-stats">
+                <div class="icon"><i class="fa fa-caret-square-o-right"></i></div>
+                <div class="count doctorspatient"></div><br />
+                <h3>Total Patients</h3>
+                <p>&nbsp; </p>
+            </div>
+        </div>
+        
+        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="tile-stats">
+                <div class="icon"><i class="fa fa-comments-o"></i></div>
+                <div class="count totaldoctorappointments"></div><br />
+                <h3>Total Appointments</h3>
+                <p class="count_bottom"><i class="green todaysdoctorappointments"> </i>  For Today</p>
+            </div>
+        </div>
+        
+    </div>
+}
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('.patients').append(@ViewBag.Patients);
+            $('.appointments').append(@ViewBag.Appointments);
+            $('.doctors').append(@ViewBag.Doctors);
+            $('.users').append(@ViewBag.Users);
+            $('.todaysappointments').append(@ViewBag.TodaysAppointments);
+            $('.upcomingappointments').append(@ViewBag.UpcomingPatientAppointment);
+            $('.totalappointments').append(@ViewBag.TotalPatientAppointment);
+            $('.pendingappointments').append(@ViewBag.PendingPatientAppointment);
+            $('.totaldoctorappointments').append(@ViewBag.DoctorAppointments);
+            $('.todaysdoctorappointments').append(@ViewBag.DoctorTodaysAppointments);
+            $('.doctorspatient').append(@ViewBag.DoctorsPatient);
+        });
+    </script>
+}

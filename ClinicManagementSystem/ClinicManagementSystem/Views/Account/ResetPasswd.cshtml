@@ -1,0 +1,46 @@
+﻿@using ClinicManagementSystem.Models
+@model ResetPasswdViewModel
+@{
+    ViewBag.Title = "Reset Password";
+    Layout = "~/Views/Shared/_LayoutOut.cshtml";
+}
+
+<div>
+    <div class="login_wrapper">
+        <section id="loginForm" class="login_content">
+            @using (Html.BeginForm("ResetPasswd", "Account", FormMethod.Post, new { @class = "animate form login_form", role = "form" }))
+            {
+                <h1>Reset Password</h1>
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div>
+
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email Id" })
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+
+                </div>
+                <div id="reset">
+                    <button type="submit" class="btn btn-primary send_link" id="Submit" style="margin-left:auto">Reset</button>
+                    <button type="button" class="btn btn-danger" id="Login">Login</button>
+                    <br />
+                </div>
+                <div class="separator">
+                    <div class="clearfix"></div>
+                    <div>
+                        <h1><i class="fa fa-hospital-o"></i> Clinic Managment System</h1>
+                        <p>©@DateTime.Now.Year All Rights Reserved.</p>
+                    </div>
+                </div>
+            }
+        </section>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $("#Login").on("click", function () {
+            document.location.href = "Login", true;
+        });
+    </script>
+}
+

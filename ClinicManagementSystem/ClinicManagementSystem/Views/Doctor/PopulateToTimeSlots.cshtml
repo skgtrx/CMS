@@ -1,0 +1,14 @@
+﻿@model ClinicManagementSystem.Models.DoctorScheduleViewModel
+@{
+    Layout = null;
+}
+
+<option value="@Model.PreviousToScheduleTime.Id">@Model.PreviousToScheduleTime.Time</option>
+@foreach (var item in Model.From)
+{
+    if (item.Id > Model.PreviousFromScheduleTime.Id && item.Id!=Model.PreviousToScheduleTime.Id)
+    {
+        <option value="@item.Id">@item.Time</option>
+    }
+}
+

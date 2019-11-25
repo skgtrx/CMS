@@ -1,0 +1,77 @@
+﻿@using ClinicManagementSystem.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+    if (Session["userId"] != null)
+    {
+        Response.Redirect("~/Home");
+    }
+    Layout = "~/Views/Shared/_LayoutOut.cshtml";
+}
+<div>
+    <div class="login_wrapper">
+        <section id="loginForm" class="login_content">
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "animate form login_form", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <h1>Login Form</h1>
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div>
+
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email Id" })
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+
+                </div>
+
+                <div>                    
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", @id = "txtPassword", placeholder = "Password" })
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })                        
+                </div>
+                <div>
+                    <input type="submit" value="Log in" class="btn btn-primary" style="margin-left:auto" />
+                </div>
+                <div class="clearfix"></div>
+                <div class="separator">
+                    <p class="change_link">
+                        New to site?
+                        @Html.ActionLink("Create Account", "Register", "Account")
+                    </p>
+                    <p class="change_link">
+                        Forgot Password?
+                        @Html.ActionLink("Reset Password", "ResetPasswd", "Account")
+                    </p>
+                    <div class="clearfix"></div>
+                    <br />
+                    <div>
+                        <h1><i class="fa fa-hospital-o"></i> Clinic Managment System</h1>
+                        <p>©@DateTime.Now.Year All Rights Reserved.</p>
+                    </div>
+                </div>
+            }
+        </section>
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#show_password').hover(function show() {
+                //Change the attribute to text
+                $('#txtPassword').attr('type', 'text');
+                $('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+            },
+            function () {
+                //Change the attribute back to password
+                $('#txtPassword').attr('type', 'password');
+                $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+            });
+        });
+    </script>
+}
+
+
+
+

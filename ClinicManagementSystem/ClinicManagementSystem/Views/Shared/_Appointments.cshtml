@@ -1,0 +1,80 @@
+﻿@using ClinicManagementSystemDOL.Enums;
+@using ClinicManagementSystemDOL.Models;
+@model IList<Appointment>
+@{
+    
+    Layout = null;
+}
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_content">
+                <table class="data table table-striped no-margin dataTable">
+                    <thead>
+                        <tr>
+                            <th>Token</th>
+                            <th>Patient</th>
+                            <th>Doctor</th>
+                            <th>Phone</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Details</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.Patient.FirstName @item.Patient.LastName</td>
+                                <td>@item.Doctor.FirstName @item.Doctor.LastName</td>
+                                <td>@item.Patient.Phone</td>
+                                <td>@item.Date.ToShortDateString()</td>
+                                <td>@item.AppointmentTime.Time</td>                                                                
+                                <td>@item.Details</td> 
+                                <td>
+                                    @{
+                                        if (@Enum.GetName(typeof(ClinicManagementSystemDOL.Enums.AppointmentStatus), @item.AppointmentStatus.Id) == "Open")
+                                        {
+                                            <a href="#" style="padding: 3px 10px 3px 10px; background-color:green " class="badge" readonly name="Open">Open</a>
+                                        }
+                                        else if (@Enum.GetName(typeof(ClinicManagementSystemDOL.Enums.AppointmentStatus), @item.AppointmentStatus.Id) == "Rejected")
+                                        {
+                                            <a href="#" style="padding: 3px 10px 3px 10px; background-color:red " class="badge" readonly name="Rejected">Rejected</a>
+                                        }
+                                        else if (@Enum.GetName(typeof(ClinicManagementSystemDOL.Enums.AppointmentStatus), @item.AppointmentStatus.Id) == "Pending")
+                                        {
+                                            <a href="#" style="padding: 3px 10px 3px 10px; background-color:darkorange " class="badge" readonly name="Pending">Pending</a>
+                                        }
+                                        else
+                                        {
+                                            <a href="#" style="padding: 3px 10px 3px 10px; background-color:slateblue " class="badge" readonly name="Closed">Closed</a>
+                                        }
+
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('.dataTable').DataTable({
+            "scrollY": "300px",
+            "scrollCollapse": true,
+            "paging": false,
+            "filter": false,
+            "info": false,
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        });
+    });
+</script>

@@ -1,0 +1,79 @@
+﻿@using ClinicManagementSystemDOL.Enums
+@model ClinicManagementSystem.Models.AppointmentViewModel
+@{
+    ViewBag.Title = "Doctors";
+    if (Session["userId"] == null)
+    {
+        Response.Redirect("~/Account/Login");
+    }
+    else if ((int)Session["roleId"] != (int)ClinicManagementSystemDOL.Enums.Roles.Assistant)
+    {
+        Response.Redirect("~/Error.htm");
+    }
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_content">
+            <div class="well" style="overflow: auto">
+                <div class="col-md-6">
+                    <div>
+                        <label>Select Date </label>
+                        <span>@Html.DropDownListFor(m => m.DatesList, new SelectList(""), new { @style = "width: 100%;", @class = "MakeWide form-control", @id = "Date" })</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div id="DoctorsList"></div>
+        <div class="x_content">
+        </div>
+    </div>
+</div>
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("FetchDates", "Assistant")",
+                contentType: "application/json; charset=utf-8",
+                success: function (viewHTML) {
+                    $("#Date").html(viewHTML);
+                },
+                fail: function (errorData) {
+
+                    onError(errorData);
+                }
+            });
+        });
+        $("#Date").change(function () {
+            if ($("#Date option:selected").val() == "select")
+                $("#DoctorsList").hide();
+        });
+
+        $("#Date").change(function () {
+            if ($("#Date option:selected").val() != "select") {
+                var model = new Object();
+                model.SelectedDate = $("#Date option:selected").val();
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("DoctorsList", "Assistant")",
+                    data: JSON.stringify(model),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (viewHTML) {
+                        $("#DoctorsList").html(viewHTML);
+                    },
+                    fail: function (errorData) {
+
+                        onError(errorData);
+                    }
+                });
+            }
+        });
+    </script>
+}
+

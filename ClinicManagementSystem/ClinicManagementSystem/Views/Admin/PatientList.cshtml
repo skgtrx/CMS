@@ -1,0 +1,80 @@
+﻿@using ClinicManagementSystemDOL.Enums
+@using ClinicManagementSystemDOL.Models;
+@model IEnumerable<Patients>
+
+@{
+    ViewBag.Title = "Patients";
+    if (Session["userId"] == null)
+    {
+        Response.Redirect("~/Account/Login");
+    }
+    else if ((int)Session["roleId"] != (int)ClinicManagementSystemDOL.Enums.Roles.Admin)
+    {
+        Response.Redirect("~/Error.htm");
+    }
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h3>Patients </h3>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <table id="patients" class="data table table-striped no-margin">
+                    <thead>
+                        <tr>
+                            <th>UserId</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Gender</th>
+                            <th>Phone</th>
+                            <th>Address</th>
+                            <th>Email</th>
+                            <th><a href="@Url.Action("Add","Admin/Patient")" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i>Add</a></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Users.Id</td>
+                                <td>@item.Users.FirstName</td>
+                                <td>@item.Users.LastName</td>
+                                <td>@Enum.GetName(typeof(Gender), @item.Users.Gender)</td>
+                                <td>@item.Users.Phone</td>
+                                <td>@item.Users.Address</td>
+                                <td>@item.Users.Email</td>
+                                <td>
+                                    <a href="@Url.Action("PatientUserDetails","Admin", new { id = item.Users.Id})" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View</a>
+                                    <a class="btn btn-danger btn-xs js-delete"><i class='fa fa-trash-o'></i> Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script>
+        var popup;
+
+        $(document).ready(function () {
+            var table = $("#patients").DataTable();
+
+            $("#patients").on("click", ".js-delete", function () {
+                var row = $(this).closest("TR");
+                var itemId = $("TD", row).eq(0).html();
+                bootbox.confirm("Are you sure to delete this patient?", function (result) {
+                    if (result) {
+                        location.href = '@Url.Action("RemovePatientUser","Admin")?id=' + itemId;
+                    }
+                });
+            });
+        });
+    </script>
+}

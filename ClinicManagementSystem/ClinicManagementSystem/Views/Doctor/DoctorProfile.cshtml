@@ -1,0 +1,94 @@
+﻿@using ClinicManagementSystem.Models
+@model DoctorProfileViewModel
+@{
+    ViewBag.Title = "Profile";
+    if (Session["userId"] == null)
+    {
+        Response.Redirect("~/Account/Login");
+    }
+    else if ((int)Session["roleId"] != (int)ClinicManagementSystemDOL.Enums.Roles.Doctor)
+    {
+        Response.Redirect("~/Error.htm");
+    }
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Profile </h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a href="~/Doctor/Profile/Edit" class="btn-link"><i class="fa fa-edit m-right-xs"></i>Edit</a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="x_content">
+                <div class="col-md-3 col-sm-3 col-xs-12 profile_left">
+                    <div class="profile_img">
+                        <div id="crop-avatar">
+                            <!-- Current avatar -->
+                            <img class="img-responsive avatar-view" src="~/Content/images/user.png" alt="Avatar" title="Change the avatar">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8 col-sm-8 col-xs-12">
+                    <h3> Dr. @char.ToUpper(@Model.Doctor.FirstName[0])@Model.Doctor.FirstName.Substring(1) @char.ToUpper(@Model.Doctor.LastName[0])@Model.Doctor.LastName.Substring(1)</h3>
+                    <ul class="list-unstyled user_data">
+                        <li>
+                            <i class="fa fa-briefcase user-profile-icon"></i> &nbsp; Doctor
+                        </li>
+                        <li>
+                            <i class="fa fa-birthday-cake user-profile-icon"></i> &nbsp; @Model.Doctor.DateOfBirth.ToShortDateString()
+                        </li>
+                        <li>
+                            <i class="fa fa-map-marker user-profile-icon"></i> &nbsp; @Model.Doctor.Address
+                        </li>
+                        <li>
+                            <i class="fa fa-phone"></i> &nbsp; @Model.Doctor.Phone
+                        </li>
+                        <li>
+                            <i class="fa fa-inbox"></i> &nbsp; @Model.Doctor.Email
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            if (@ViewBag.Availibility === 1) {
+                document.getElementById("status").checked = true;
+            } else {
+                document.getElementById("status").checked = false;
+            }
+        });
+        $("#status").on("change",function(e){
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("UpdateStatus", "Home")",
+                contentType:"application/json; charset=utf-8",
+            dataType:"html",
+ 
+            success: function (viewHTML) {
+                $("body").html(viewHTML);
+            },
+            fail: function (errorData) {
+                onError(errorData);
+            }
+        })
+        })
+        @*function updateStatus() {
+            var checkBox = document.getElementById("status");
+            if (checkBox.checked == true) {
+                location.href = '@Url.Action("Appointments", "Doctor")';
+            } else {
+                location.href = '@Url.Action("Profile", "Doctor")';
+            }
+        }*@
+    </script>
+    }

@@ -1,0 +1,34 @@
+﻿@model ClinicManagementSystem.Models.DoctorScheduleViewModel
+@{
+    Layout = null;
+}
+
+@if (Model.PreviousFromScheduleTime != null)
+{
+    <option value="@Model.PreviousFromScheduleTime.Id">@Model.PreviousFromScheduleTime.Time</option>
+}
+else if (Model.PreviousToScheduleTime != null)
+{
+    <option value="@Model.PreviousToScheduleTime.Id"> @Model.PreviousToScheduleTime.Time </option>
+}
+else
+{
+    <option value="select"> -select -</option>
+}
+@foreach (var item in Model.From)
+{
+    if (Model.SelectedFromId == 0)
+    {
+        if (!item.Time.Equals("04:30PM", StringComparison.InvariantCultureIgnoreCase))
+        {
+            <option value="@item.Id">@item.Time</option>
+        }
+    }
+    else if (item.Id > Model.SelectedFromId)
+    {
+        <option value="@item.Id">@item.Time</option>
+    }
+
+}
+
+

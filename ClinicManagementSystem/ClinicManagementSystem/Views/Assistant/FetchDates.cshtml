@@ -1,0 +1,10 @@
+﻿@model ClinicManagementSystem.Models.AppointmentViewModel
+@{
+    Layout = null;
+}
+<option value="select">-select-</option>
+@foreach (var item in Model.DatesList )
+{
+    <option value="@item.ToShortDateString()">@item.ToShortDateString()</option>
+}
+

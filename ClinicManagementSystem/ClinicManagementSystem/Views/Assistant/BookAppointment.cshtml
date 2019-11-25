@@ -1,0 +1,158 @@
+﻿@using ClinicManagementSystem.Models
+@model AssistantsBookAppointmentViewModel
+@{
+    ViewBag.Title = "Book Appointment";
+    if (Session["userId"] == null)
+    {
+        Response.Redirect("~/Account/Login");
+    }
+    else if ((int)Session["roleId"] != (int)ClinicManagementSystemDOL.Enums.Roles.Assistant)
+    {
+        Response.Redirect("~/Error.htm");
+    }
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row ">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h3>Book Appointment </h3>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="form-horizontal form-label-left">
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(t=>t.DoctorId,Model.DoctorId)
+                    @Html.HiddenFor(t=>t.Date,Model.Date)
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Patient Phone number <span class="required">*</span></label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            @Html.TextBoxFor(m => m.PatientPhoneNumber, new { @class = "form-control", id = "patientPhoneNumber", Value = Model.PatientPhoneNumber })
+                            @Html.ValidationMessageFor(m => m.PatientPhoneNumber, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Date Of Appointment <span class="required">*</span></label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            @Html.TextBoxFor(m => m.Date, "{0:MM/dd/yyyy}", new { @class = "form-control datepicker", @id = "appointment-date", @Value = Model.Date.ToShortDateString(), @readonly = "readonly" })
+                            @*@Html.ValidationMessageFor(m => m.Date)*@
+                        </div>
+                    </div>
+                    <div id="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Time Slot <span class="required">*</span></label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            @Html.DropDownListFor(m => m.AvailableTimeSlots, new SelectList(Model.AvailableTimeSlots), new { @class = "form-control time", id = "TimeSlots" })
+                            @Html.ValidationMessageFor(m => m.AvailableTimeSlots)
+                        </div>
+                    </div>
+                    <br /><br />
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Details <span class="required">*</span></label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            @Html.TextAreaFor(m => m.Details, new { @class = "form-control col-md-7 col-xs-12", @Value = Model.Details })
+                            @Html.ValidationMessageFor(m => m.Details)
+                        </div>
+                    </div>
+                    <div class="ln_solid"></div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                            <button type="submit" class="btn btn-primary" id="book">Book Appointment</button>
+                            <a class="btn btn-danger" onclick="history.go(-2); return false;" href="#">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@Html.HiddenFor(m => m.DoctorId)
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        //$('.datepicker').datepicker({
+        //    autoclose: true
+        //});
+        $(document).ready(function () {
+            if ($("#patientPhoneNumber").val().length==10) {
+                var model=new Object();
+                model.DoctorId=$("#DoctorId").val();
+                model.Date=$("#Date").val();
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("PopulateTimeSlot", "Assistant")",
+                    data:JSON.stringify(model),
+                contentType: "application/json; charset=utf-8",
+                success: function (viewHTML) {
+                    $("#TimeSlots").html(viewHTML);
+                },
+                fail: function (errorData) {
+
+                    onError(errorData);
+                }
+            });
+            }
+            
+        });
+
+        $("#patientPhoneNumber").change(function(){
+            $("#TimeSlots").empty();
+            if($("#patientPhoneNumber").val().length==10){
+                var model=new Object();
+                model.DoctorId=$("#DoctorId").val();
+                model.Date=$("#Date").val();
+                model.PatientPhone=$("#patientPhoneNumber").val();
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("PopulateTimeSlot", "Assistant")",
+                    data:JSON.stringify(model),
+                contentType: "application/json; charset=utf-8",
+                success: function (viewHTML) {
+                    $("#TimeSlots").html(viewHTML);
+                },
+                fail: function (errorData) {
+
+                    onError(errorData);
+                }
+            });
+            }else{
+                alert("Enter a valid phone number");
+            }
+        });
+        $(function () {
+            var selectedTimeSlot;
+
+            $("#AvailableTimeSlots").change(function () {
+                selectedTimeSlot=$("#AvailableTimeSlots option:selected").val();
+            });
+
+            $("#book").click(function () {
+                var model = new Object();
+                model.SelectedTimeSlot = $("#TimeSlots option:selected").val();
+                model.Date=new Date( $("#Date").val());
+                model.PatientPhoneNumber=$("#patientPhoneNumber").val();
+                model.Details=$("#Details").val();
+                model.DoctorId=@Model.DoctorId;
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("BookAppointment", "Assistant")",
+                    contentType:"application/json; charset=utf-8",
+                    data: JSON.stringify(model),
+                    dataType:"html",
+
+                    success: function (viewHTML) {
+                        $("body").html(viewHTML);
+                    },
+                    fail: function (errorData) {
+
+                        onError(errorData);
+                    }
+                });
+
+
+            });
+        });
+
+    </script>
+}
